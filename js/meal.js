@@ -21,7 +21,7 @@ const displayMeals = meals =>{
          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 
 
-     <button onclick="loadMealDetail(${meal.idMeal})" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mealDetails">
+     <button onclick="loadMealDetail2(${meal.idMeal})" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mealDetails">
        Details
     </button>
 
@@ -42,7 +42,26 @@ const loadMealDetail = idMeal =>{
     fetch(url)
     .then(res => res.json())
     .then(data => displayDetailsMeal(data.meals[0]))
+    .catch(error => {
+        console.log(error)
+    })
     
+}
+// async await
+const loadMealDetail2 = async(idMeal) =>{
+    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`;
+    // const res = await fetch(url);
+    // const data = await res.json();
+    // displayDetailsMeal(data.meals[0]);
+    try{
+        const res = await fetch(url);
+        const data = await res.json();
+        displayDetailsMeal(data.meals[0]);
+    }
+    catch(error){
+        console.log(error);
+    }
+
 }
 
 const displayDetailsMeal = meal =>{
